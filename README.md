@@ -29,11 +29,16 @@ Open http://localhost:5300.
 
 ## UI rules that support Playwright
 
+Every Playwright locator type has something stable to find, so QA can use any style.
+
 | Rule | Example | Where |
 |---|---|---|
-| Every input has a visible label | `getByLabel('Origin')` | `src/pages/login/LoginPage.jsx`, `src/pages/loads/load-form-dialog/LoadFormDialog.jsx` |
-| Icon-only buttons have an `aria-label` naming the action and the record | `Edit load LD-1001` | `src/pages/loads/load-grid-cells.jsx`, `src/layout/header/Header.jsx` |
+| Every input has a visible label, and text inputs have a placeholder | `Origin` / `City, ST` | `src/pages/login/LoginPage.jsx`, `src/pages/loads/load-form-dialog/LoadFormDialog.jsx` |
+| Icon-only buttons have an `aria-label` and a `title` naming the action and the record. Text buttons have a `title` too | `Edit load LD-1001` | `src/pages/loads/load-grid-cells.jsx`, `src/layout/header/Header.jsx` |
+| Every input, button, link, section and dialog has a `data-testid`, a stable `id` and an own class name | `loads-create`, `#loads-create`, `.loads-page__create` | All screens |
+| MUI inputs carry the test id on the real `<input>` (`inputProps`), and MUI selects on the clickable box (`SelectDisplayProps`) | `loads-search`, `loads-status-filter` | `src/pages/loads/LoadsPage.jsx` |
 | Grid rows have `data-testid="<entity>-row-<id>"` | `load-row-1001` (Kendo, through `rowRender`) | `src/pages/loads/load-grid-helpers.js` |
+| Images have `alt` text | `TMS Demo logo` | `src/layout/header/Header.jsx`, `src/pages/login/LoginPage.jsx` |
 | Loaders are named, and the grid area sets `aria-busy` while loading | `Loading loads` | `src/pages/loads/LoadsPage.jsx` |
 | The side nav is a named `nav` landmark, and its links set `aria-current` | `Main navigation` | `src/layout/side-nav/SideNav.jsx` |
 | Dialogs are named by their title | `Create load` | `src/pages/loads/load-form-dialog/LoadFormDialog.jsx` |

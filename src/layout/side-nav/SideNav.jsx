@@ -7,17 +7,31 @@ import { ROUTES, SIDE_NAV_WIDTH } from '../../constants/app';
 import './side-nav.scss';
 
 const NAV_ITEMS = [
-    { label: 'Dashboard', to: ROUTES.dashboard, Icon: DashboardIcon },
-    { label: 'Loads', to: ROUTES.loads, Icon: LocalShippingIcon },
-    { label: 'Carriers', to: ROUTES.carriers, Icon: BusinessIcon },
+    { key: 'dashboard', label: 'Dashboard', to: ROUTES.dashboard, Icon: DashboardIcon },
+    { key: 'loads', label: 'Loads', to: ROUTES.loads, Icon: LocalShippingIcon },
+    { key: 'carriers', label: 'Carriers', to: ROUTES.carriers, Icon: BusinessIcon },
 ];
 
 export default function SideNav() {
     return (
-        <nav className="side-nav" aria-label="Main navigation" style={{ width: SIDE_NAV_WIDTH }}>
+        <nav
+            id="side-nav"
+            className="side-nav"
+            data-testid="side-nav"
+            aria-label="Main navigation"
+            style={{ width: SIDE_NAV_WIDTH }}
+        >
             <List>
-                {NAV_ITEMS.map(({ label, to, Icon }) => (
-                    <ListItemButton key={to} component={NavLink} to={to} className="side-nav__link">
+                {NAV_ITEMS.map(({ key, label, to, Icon }) => (
+                    <ListItemButton
+                        key={key}
+                        id={`side-nav-link-${key}`}
+                        data-testid={`side-nav-link-${key}`}
+                        component={NavLink}
+                        to={to}
+                        title={`Go to ${label}`}
+                        className="side-nav__link"
+                    >
                         <ListItemIcon>
                             <Icon />
                         </ListItemIcon>

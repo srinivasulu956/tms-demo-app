@@ -1,5 +1,9 @@
 export const APP_NAME = 'TMS Demo';
 
+export const APP_LOGO_SRC = '/logo.svg';
+
+export const APP_LOGO_ALT = `${APP_NAME} logo`;
+
 export const ROUTES = {
     login: '/login',
     dashboard: '/dashboard',

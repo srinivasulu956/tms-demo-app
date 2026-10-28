@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { Alert, Button, Paper, TextField, Typography } from '@mui/material';
 import { useForm } from 'react-hook-form';
 import { Navigate, useLocation, useNavigate } from 'react-router-dom';
-import { APP_NAME, ROUTES } from '../../constants/app';
+import { APP_LOGO_ALT, APP_LOGO_SRC, APP_NAME, ROUTES } from '../../constants/app';
 import { useAuth } from '../../auth/useAuth';
 import { loginUser } from '../../mock/mock-api';
 import './login-page.scss';
@@ -39,40 +39,70 @@ export default function LoginPage() {
     };
 
     return (
-        <main className="login-page">
+        <main id="login-page" className="login-page" data-testid="login-page">
             <Paper
                 component="form"
+                id="login-form"
                 className="login-page__card tms-form"
+                data-testid="login-form"
                 onSubmit={handleSubmit(onSubmit)}
                 noValidate
                 aria-labelledby="login-title"
             >
-                <Typography id="login-title" variant="h5" component="h1" gutterBottom>
+                <img className="login-page__logo" src={APP_LOGO_SRC} alt={APP_LOGO_ALT} data-testid="login-logo" />
+                <Typography
+                    id="login-title"
+                    className="login-page__title"
+                    data-testid="login-title"
+                    variant="h5"
+                    component="h1"
+                    gutterBottom
+                >
                     Sign in to {APP_NAME}
                 </Typography>
-                {loginError && <Alert severity="error">{loginError}</Alert>}
+                {loginError && (
+                    <Alert id="login-error" className="login-page__error" data-testid="login-error" severity="error">
+                        {loginError}
+                    </Alert>
+                )}
                 <TextField
                     id="login-username"
+                    className="login-page__username"
                     label="Username"
+                    placeholder="Enter your username"
                     autoComplete="username"
                     fullWidth
                     margin="normal"
+                    inputProps={{ 'data-testid': 'login-username' }}
                     error={Boolean(errors.username)}
                     helperText={errors.username?.message}
                     {...register('username', { required: 'Username is required' })}
                 />
                 <TextField
                     id="login-password"
+                    className="login-page__password"
                     label="Password"
+                    placeholder="Enter your password"
                     type="password"
                     autoComplete="current-password"
                     fullWidth
                     margin="normal"
+                    inputProps={{ 'data-testid': 'login-password' }}
                     error={Boolean(errors.password)}
                     helperText={errors.password?.message}
                     {...register('password', { required: 'Password is required' })}
                 />
-                <Button type="submit" variant="contained" fullWidth disabled={isSigningIn} sx={{ mt: 2 }}>
+                <Button
+                    id="login-submit"
+                    className="login-page__submit"
+                    data-testid="login-submit"
+                    type="submit"
+                    variant="contained"
+                    title="Sign in with your username and password"
+                    fullWidth
+                    disabled={isSigningIn}
+                    sx={{ mt: 2 }}
+                >
                     Sign in
                 </Button>
             </Paper>

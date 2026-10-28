@@ -12,7 +12,7 @@ export default function AppLayout() {
             <Header onToggleSideNav={() => setIsSideNavOpen((isOpen) => !isOpen)} />
             <div className="app-layout__body">
                 {isSideNavOpen && <SideNav />}
-                <main className="app-layout__content">
+                <main id="main-content" className="app-layout__content" data-testid="main-content">
                     <Outlet />
                 </main>
             </div>

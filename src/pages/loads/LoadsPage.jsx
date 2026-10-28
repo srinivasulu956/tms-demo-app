@@ -80,15 +80,18 @@ export default function LoadsPage() {
     };
 
     return (
-        <section aria-labelledby="loads-title">
-            <Typography id="loads-title" variant="h5" component="h1" className="page-title">
+        <section id="loads-page" className="loads-page" data-testid="loads-page" aria-labelledby="loads-title">
+            <Typography id="loads-title" variant="h5" component="h1" className="page-title" data-testid="loads-title">
                 Loads
             </Typography>
-            <div className="loads-page__toolbar tms-form">
+            <div id="loads-toolbar" className="loads-page__toolbar tms-form" data-testid="loads-toolbar">
                 <TextField
                     id="loads-search"
+                    className="loads-page__search"
                     label="Search loads"
+                    placeholder="Load #, customer or city"
                     size="small"
+                    inputProps={{ 'data-testid': 'loads-search' }}
                     value={searchText}
                     onChange={handleSearchChange}
                 />
@@ -97,6 +100,7 @@ export default function LoadsPage() {
                     label="Status"
                     size="small"
                     select
+                    SelectProps={{ SelectDisplayProps: { 'data-testid': 'loads-status-filter', title: 'Filter by status' } }}
                     value={statusFilter}
                     onChange={handleStatusChange}
                     className="loads-page__status-filter"
@@ -108,21 +112,34 @@ export default function LoadsPage() {
                     ))}
                 </TextField>
                 <div className="loads-page__toolbar-spacer" />
-                <Button variant="outlined" startIcon={<RefreshIcon />} onClick={loadLoads} disabled={isLoading}>
+                <Button
+                    id="loads-refresh"
+                    className="loads-page__refresh"
+                    data-testid="loads-refresh"
+                    variant="outlined"
+                    title="Reload the loads list"
+                    startIcon={<RefreshIcon />}
+                    onClick={loadLoads}
+                    disabled={isLoading}
+                >
                     Refresh
                 </Button>
                 <Button
+                    id="loads-create"
+                    className="loads-page__create"
+                    data-testid="loads-create"
                     variant="contained"
+                    title="Create a new load"
                     startIcon={<AddIcon />}
                     onClick={() => setDialog({ isOpen: true, load: null })}
                 >
                     Create load
                 </Button>
             </div>
-            <div className="loads-page__grid" data-testid="load-list-grid" aria-busy={isLoading}>
+            <div id="load-list-grid" className="loads-page__grid" data-testid="load-list-grid" aria-busy={isLoading}>
                 {isLoading && (
                     <div className="loads-page__grid-overlay">
-                        <CircularProgress aria-label="Loading loads" />
+                        <CircularProgress aria-label="Loading loads" data-testid="loads-loader" />
                     </div>
                 )}
                 <LoadGridActionsContext.Provider value={gridActions}>

@@ -37,7 +37,15 @@ export function ActionsCell(props) {
     const load = props.dataItem;
     return (
         <td {...cellProps(props)}>
-            <IconButton size="small" aria-label={`Edit load ${load.loadNumber}`} onClick={() => onEdit(load)}>
+            <IconButton
+                id={`load-edit-${load.id}`}
+                className="loads-page__edit"
+                data-testid={`load-edit-${load.id}`}
+                size="small"
+                aria-label={`Edit load ${load.loadNumber}`}
+                title={`Edit load ${load.loadNumber}`}
+                onClick={() => onEdit(load)}
+            >
                 <EditIcon fontSize="small" />
             </IconButton>
         </td>

@@ -28,15 +28,27 @@ export default function CarriersPage() {
     }, []);
 
     return (
-        <section aria-labelledby="carriers-title">
-            <Typography id="carriers-title" variant="h5" component="h1" className="page-title">
+        <section id="carriers-page" className="carriers-page" data-testid="carriers-page" aria-labelledby="carriers-title">
+            <Typography
+                id="carriers-title"
+                variant="h5"
+                component="h1"
+                className="page-title"
+                data-testid="carriers-title"
+            >
                 Carriers
             </Typography>
             {isLoading ? (
-                <CircularProgress aria-label="Loading carriers" />
+                <CircularProgress aria-label="Loading carriers" data-testid="carriers-loader" />
             ) : (
                 <TableContainer component={Paper}>
-                    <Table aria-label="Carriers" size="small">
+                    <Table
+                        id="carriers-table"
+                        className="carriers-page__table"
+                        data-testid="carriers-table"
+                        aria-label="Carriers"
+                        size="small"
+                    >
                         <TableHead>
                             <TableRow>
                                 <TableCell>MC #</TableCell>

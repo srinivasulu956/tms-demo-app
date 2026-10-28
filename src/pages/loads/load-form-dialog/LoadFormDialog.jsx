@@ -51,9 +51,24 @@ export default function LoadFormDialog({ isOpen, load, onClose, onSaved }) {
     };
 
     return (
-        <Dialog open={isOpen} onClose={onClose} aria-labelledby="load-form-title" fullWidth maxWidth="sm">
-            <form onSubmit={handleSubmit(onSubmit)} noValidate className="load-form-dialog tms-form">
-                <DialogTitle id="load-form-title">{title}</DialogTitle>
+        <Dialog
+            open={isOpen}
+            onClose={onClose}
+            aria-labelledby="load-form-title"
+            PaperProps={{ id: 'load-form-dialog', 'data-testid': 'load-form-dialog' }}
+            fullWidth
+            maxWidth="sm"
+        >
+            <form
+                id="load-form"
+                onSubmit={handleSubmit(onSubmit)}
+                noValidate
+                className="load-form-dialog tms-form"
+                data-testid="load-form"
+            >
+                <DialogTitle id="load-form-title" className="load-form-dialog__title" data-testid="load-form-title">
+                    {title}
+                </DialogTitle>
                 <DialogContent className="load-form-dialog__fields">
                     <Controller
                         name="customer"
@@ -63,8 +78,12 @@ export default function LoadFormDialog({ isOpen, load, onClose, onSaved }) {
                             <TextField
                                 {...field}
                                 id="load-form-customer"
+                                className="load-form-dialog__customer"
                                 label="Customer"
                                 select
+                                SelectProps={{
+                                    SelectDisplayProps: { 'data-testid': 'load-form-customer', title: 'Choose a customer' },
+                                }}
                                 error={Boolean(errors.customer)}
                                 helperText={errors.customer?.message}
                             >
@@ -78,14 +97,20 @@ export default function LoadFormDialog({ isOpen, load, onClose, onSaved }) {
                     />
                     <TextField
                         id="load-form-origin"
+                        className="load-form-dialog__origin"
                         label="Origin"
+                        placeholder="City, ST"
+                        inputProps={{ 'data-testid': 'load-form-origin' }}
                         error={Boolean(errors.origin)}
                         helperText={errors.origin?.message}
                         {...register('origin', { required: 'Origin is required' })}
                     />
                     <TextField
                         id="load-form-destination"
+                        className="load-form-dialog__destination"
                         label="Destination"
+                        placeholder="City, ST"
+                        inputProps={{ 'data-testid': 'load-form-destination' }}
                         error={Boolean(errors.destination)}
                         helperText={errors.destination?.message}
                         {...register('destination', {
@@ -97,8 +122,10 @@ export default function LoadFormDialog({ isOpen, load, onClose, onSaved }) {
                     />
                     <TextField
                         id="load-form-pickup-date"
+                        className="load-form-dialog__pickup-date"
                         label="Pickup date"
                         type="date"
+                        inputProps={{ 'data-testid': 'load-form-pickup-date' }}
                         InputLabelProps={{ shrink: true }}
                         error={Boolean(errors.pickupDate)}
                         helperText={errors.pickupDate?.message}
@@ -106,8 +133,10 @@ export default function LoadFormDialog({ isOpen, load, onClose, onSaved }) {
                     />
                     <TextField
                         id="load-form-rate"
+                        className="load-form-dialog__rate"
                         label="Rate (USD)"
-                        inputMode="decimal"
+                        placeholder="e.g. 1500.00"
+                        inputProps={{ 'data-testid': 'load-form-rate', inputMode: 'decimal' }}
                         error={Boolean(errors.rate)}
                         helperText={errors.rate?.message}
                         {...register('rate', {
@@ -119,7 +148,16 @@ export default function LoadFormDialog({ isOpen, load, onClose, onSaved }) {
                         name="status"
                         control={control}
                         render={({ field }) => (
-                            <TextField {...field} id="load-form-status" label="Status" select>
+                            <TextField
+                                {...field}
+                                id="load-form-status"
+                                className="load-form-dialog__status"
+                                label="Status"
+                                select
+                                SelectProps={{
+                                    SelectDisplayProps: { 'data-testid': 'load-form-status', title: 'Choose a status' },
+                                }}
+                            >
                                 {LOAD_STATUSES.map((status) => (
                                     <MenuItem key={status} value={status}>
                                         {status}
@@ -130,10 +168,25 @@ export default function LoadFormDialog({ isOpen, load, onClose, onSaved }) {
                     />
                 </DialogContent>
                 <DialogActions>
-                    <Button onClick={onClose} disabled={isSaving}>
+                    <Button
+                        id="load-form-cancel"
+                        className="load-form-dialog__cancel"
+                        data-testid="load-form-cancel"
+                        title="Close without saving"
+                        onClick={onClose}
+                        disabled={isSaving}
+                    >
                         Cancel
                     </Button>
-                    <Button type="submit" variant="contained" disabled={isSaving}>
+                    <Button
+                        id="load-form-save"
+                        className="load-form-dialog__save"
+                        data-testid="load-form-save"
+                        type="submit"
+                        variant="contained"
+                        title="Save this load"
+                        disabled={isSaving}
+                    >
                         Save
                     </Button>
                 </DialogActions>
