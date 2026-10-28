@@ -1,0 +1,8 @@
+.load-form-dialog {
+    &__fields {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 16px;
+        padding-top: 8px !important;
+    }
+}

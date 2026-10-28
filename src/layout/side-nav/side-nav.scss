@@ -1,0 +1,10 @@
+.side-nav {
+    flex-shrink: 0;
+    background-color: #ffffff;
+    border-right: 1px solid #e0e0e0;
+
+    &__link.active {
+        background-color: #e3ecf5;
+        font-weight: 600;
+    }
+}
